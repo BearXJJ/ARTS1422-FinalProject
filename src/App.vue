@@ -62,15 +62,15 @@
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        width: 54%;
+        width: 57%;
         height: 100%;
         .middle-upper{
-          height: 60%;
+          height: 65%;
           background-color: white;
           border-radius: 5px;
         }
         .middle-lower{
-          height: 38.5%;
+          height: 33.5%;
           background-color: white;
           border-radius: 5px;
         }
@@ -79,7 +79,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        width: 20%;
+        width: 17%;
         height: 100%;
         .right-upper{
           height: 33.5%;

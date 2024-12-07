@@ -1,10 +1,16 @@
 <template>
   <div class="panoramic-view">
     <div class="title">Panoramic View</div>
+    
   </div>
 </template>
 
 <script setup>
+  import data from '../assets/data/test-data.json'
+
+
+
+
 
 </script>
 
