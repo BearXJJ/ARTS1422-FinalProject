@@ -1,10 +1,3 @@
-<template>
-  <div class="panoramic-view">
-    <div class="title">Panoramic View</div>
-    <svg ref="graphRef" class="graph"></svg>
-  </div>
-</template>
-
 <script setup>
   import {ref, onMounted} from 'vue';
   import * as d3 from 'd3';
@@ -182,7 +175,22 @@
 
 </script>
 
+<template>
+  <div class="panoramic-view">
+    <div class="title">
+      <div>Panoramic View</div>
+      <div class="icon">
+        <span class="iconfont icon-fangdajing"></span>
+        <span class="iconfont icon-duibi"></span>
+      </div>
+
+    </div>
+    <svg ref="graphRef" class="graph"></svg>
+  </div>
+</template>
+
 <style lang="less" scoped>
+  @import '../assets/icon/iconfont.css';
   .panoramic-view {
     height: 100%;
     padding: 0px 10px;
@@ -191,9 +199,17 @@
   }
 
   .title {
+    display: flex;
+    justify-content: space-between;
     height: 30px;
     line-height: 30px;
     border-bottom: 2px solid rgb(179, 179, 179);
+    .icon{
+      .iconfont{
+        font-size: 20px;
+        margin-left: 10px;
+      }
+    }
   }
 
   .graph {

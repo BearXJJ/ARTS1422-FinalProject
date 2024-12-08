@@ -1,0 +1,37 @@
+{
+  "id": "4773997",
+  "name": "ATRS1422",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6517479",
+      "name": "文件",
+      "font_class": "tijiao",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "681172",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e73a",
+      "unicode_decimal": 59194
+    },
+    {
+      "icon_id": "5831385",
+      "name": "放大镜",
+      "font_class": "fangdajing",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "5838455",
+      "name": "对比",
+      "font_class": "duibi",
+      "unicode": "e851",
+      "unicode_decimal": 59473
+    }
+  ]
+}
