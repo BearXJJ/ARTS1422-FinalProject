@@ -3,22 +3,27 @@
     <div class="title">Untitled</div>
     <div class="body">
       <div class="left">
-        <cluter-view></cluter-view>
+        <cluster-view>
+        </cluster-view>
       </div>
       <div class="middle">
         <div class="middle-upper">
-          <panoramic-view></panoramic-view>
+          <panoramic-view>
+          </panoramic-view>
         </div>
-        <div class="middle-lower">
-          <trend-view></trend-view>
+      <div class="middle-lower">
+          <trend-view>
+          </trend-view>
         </div>
       </div>
       <div class="right">
         <div class="right-upper">
-          <personal-statement></personal-statement>
+          <personal-statement>
+          </personal-statement>
         </div>
         <div class="right-lower">
-          <comparison-view></comparison-view>
+          <comparison-view>
+          </comparison-view>
         </div>
       </div>
     </div>
@@ -26,7 +31,7 @@
 </template>
 
 <script setup>
-  import CluterView from './components/ClusterView.vue'
+  import ClusterView from './components/ClusterView.vue'
   import PanoramicView from './components/PanoramicView.vue'
   import TrendView from './components/TrendView.vue'
   import PersonalStatement from './components/PersonalStatement.vue'
