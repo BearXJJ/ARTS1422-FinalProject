@@ -1,0 +1,275 @@
+[
+  {
+    "time": 1990,
+    "detail": {
+      "total_patent_number": 354,
+      "total_cited_number": 558,
+      "inventor_count": 25,
+      "average_cited": 1.58,
+      "cited_per_people": 22.32,
+      "emerging": 0.95,
+      "CPC_ratio": 1.12,
+      "gender_ratio": 0.80
+    }
+  },
+  {
+    "time": 1991,
+    "detail": {
+      "total_patent_number": 307,
+      "total_cited_number": 1043,
+      "inventor_count": 48,
+      "average_cited": 3.40,
+      "cited_per_people": 21.75,
+      "emerging": 0.42,
+      "CPC_ratio": 1.68,
+      "gender_ratio": 0.28
+    }
+  },
+  {
+    "time": 1992,
+    "detail": {
+      "total_patent_number": 182,
+      "total_cited_number": 850,
+      "inventor_count": 62,
+      "average_cited": 4.67,
+      "cited_per_people": 13.71,
+      "emerging": 0.55,
+      "CPC_ratio": 1.24,
+      "gender_ratio": 0.62
+    }
+  },
+  {
+    "time": 1993,
+    "detail": {
+      "total_patent_number": 280,
+      "total_cited_number": 647,
+      "inventor_count": 78,
+      "average_cited": 2.31,
+      "cited_per_people": 8.29,
+      "emerging": 0.68,
+      "CPC_ratio": 1.88,
+      "gender_ratio": 0.35
+    }
+  },
+  {
+    "time": 1994,
+    "detail": {
+      "total_patent_number": 450,
+      "total_cited_number": 720,
+      "inventor_count": 59,
+      "average_cited": 1.60,
+      "cited_per_people": 12.20,
+      "emerging": 0.82,
+      "CPC_ratio": 1.47,
+      "gender_ratio": 0.50
+    }
+  },
+  {
+    "time": 1995,
+    "detail": {
+      "total_patent_number": 500,
+      "total_cited_number": 890,
+      "inventor_count": 65,
+      "average_cited": 1.78,
+      "cited_per_people": 13.69,
+      "emerging": 0.76,
+      "CPC_ratio": 1.52,
+      "gender_ratio": 0.41
+    }
+  },
+  {
+    "time": 1996,
+    "detail": {
+      "total_patent_number": 510,
+      "total_cited_number": 980,
+      "inventor_count": 71,
+      "average_cited": 1.92,
+      "cited_per_people": 13.80,
+      "emerging": 0.85,
+      "CPC_ratio": 1.30,
+      "gender_ratio": 0.34
+    }
+  },
+  {
+    "time": 1997,
+    "detail": {
+      "total_patent_number": 568,
+      "total_cited_number": 1125,
+      "inventor_count": 88,
+      "average_cited": 1.98,
+      "cited_per_people": 12.78,
+      "emerging": 0.63,
+      "CPC_ratio": 1.56,
+      "gender_ratio": 0.37
+    }
+  },
+  {
+    "time": 1998,
+    "detail": {
+      "total_patent_number": 690,
+      "total_cited_number": 1300,
+      "inventor_count": 95,
+      "average_cited": 1.88,
+      "cited_per_people": 13.68,
+      "emerging": 0.92,
+      "CPC_ratio": 1.43,
+      "gender_ratio": 0.40
+    }
+  },
+  {
+    "time": 1999,
+    "detail": {
+      "total_patent_number": 610,
+      "total_cited_number": 1025,
+      "inventor_count": 98,
+      "average_cited": 1.68,
+      "cited_per_people": 10.46,
+      "emerging": 0.70,
+      "CPC_ratio": 1.27,
+      "gender_ratio": 0.45
+    }
+  },
+  {
+    "time": 2000,
+    "detail": {
+      "total_patent_number": 620,
+      "total_cited_number": 1300,
+      "inventor_count": 103,
+      "average_cited": 2.10,
+      "cited_per_people": 12.62,
+      "emerging": 0.78,
+      "CPC_ratio": 1.19,
+      "gender_ratio": 0.32
+    }
+  },
+  {
+    "time": 2001,
+    "detail": {
+      "total_patent_number": 740,
+      "total_cited_number": 1450,
+      "inventor_count": 112,
+      "average_cited": 1.96,
+      "cited_per_people": 12.98,
+      "emerging": 0.80,
+      "CPC_ratio": 1.25,
+      "gender_ratio": 0.26
+    }
+  },
+  {
+    "time": 2002,
+    "detail": {
+      "total_patent_number": 820,
+      "total_cited_number": 1550,
+      "inventor_count": 118,
+      "average_cited": 1.89,
+      "cited_per_people": 13.14,
+      "emerging": 0.83,
+      "CPC_ratio": 1.15,
+      "gender_ratio": 0.24
+    }
+  },
+  {
+    "time": 2003,
+    "detail": {
+      "total_patent_number": 880,
+      "total_cited_number": 1680,
+      "inventor_count": 120,
+      "average_cited": 1.91,
+      "cited_per_people": 14.00,
+      "emerging": 0.88,
+      "CPC_ratio": 1.08,
+      "gender_ratio": 0.23
+    }
+  },
+  {
+    "time": 2004,
+    "detail": {
+      "total_patent_number": 930,
+      "total_cited_number": 1800,
+      "inventor_count": 126,
+      "average_cited": 1.94,
+      "cited_per_people": 14.29,
+      "emerging": 0.91,
+      "CPC_ratio": 1.05,
+      "gender_ratio": 0.22
+    }
+  },
+  {
+    "time": 2005,
+    "detail": {
+      "total_patent_number": 1005,
+      "total_cited_number": 1950,
+      "inventor_count": 130,
+      "average_cited": 1.94,
+      "cited_per_people": 15.00,
+      "emerging": 0.84,
+      "CPC_ratio": 1.01,
+      "gender_ratio": 0.21
+    }
+  },
+  {
+    "time": 2006,
+    "detail": {
+      "total_patent_number": 1080,
+      "total_cited_number": 2100,
+      "inventor_count": 135,
+      "average_cited": 1.94,
+      "cited_per_people": 15.56,
+      "emerging": 0.80,
+      "CPC_ratio": 0.98,
+      "gender_ratio": 0.20
+    }
+  },
+  {
+    "time": 2007,
+    "detail": {
+      "total_patent_number": 1150,
+      "total_cited_number": 2250,
+      "inventor_count": 140,
+      "average_cited": 1.96,
+      "cited_per_people": 16.07,
+      "emerging": 0.77,
+      "CPC_ratio": 0.95,
+      "gender_ratio": 0.18
+    }
+  },
+  {
+    "time": 2008,
+    "detail": {
+      "total_patent_number": 1225,
+      "total_cited_number": 2400,
+      "inventor_count": 145,
+      "average_cited": 1.96,
+      "cited_per_people": 16.55,
+      "emerging": 0.85,
+      "CPC_ratio": 0.92,
+      "gender_ratio": 0.17
+    }
+  },
+  {
+    "time": 2009,
+    "detail": {
+      "total_patent_number": 1300,
+      "total_cited_number": 2550,
+      "inventor_count": 150,
+      "average_cited": 1.96,
+      "cited_per_people": 17.00,
+      "emerging": 0.85,
+      "CPC_ratio": 0.92,
+      "gender_ratio": 0.17
+    }
+  },
+  {
+    "time": 2010,
+    "detail": {
+      "total_patent_number": 1300,
+      "total_cited_number": 2550,
+      "inventor_count": 150,
+      "average_cited": 1.96,
+      "cited_per_people": 17.00,
+      "emerging": 0.85,
+      "CPC_ratio": 0.92,
+      "gender_ratio": 0.17
+    }
+  }
+]
