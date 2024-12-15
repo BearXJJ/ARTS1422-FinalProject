@@ -27,7 +27,7 @@
   const features = ['gender ratio', 'average cited', 'total patent number',
               'total cited number', 'cited per people', 'inventor count'];
 
-  let selectedCompany = ref("International Business Machines Corporation");
+  let selectedCompany = ref("");
 
   const full_data = ref([]);
   const loadData = async () => {

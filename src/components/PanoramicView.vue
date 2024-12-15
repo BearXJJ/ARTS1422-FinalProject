@@ -34,13 +34,14 @@
 </template>
 
 <script setup>
-  import {ref, onMounted} from 'vue';
+  import {ref, onMounted, onBeforeUnmount, watch} from 'vue';
   import * as d3 from 'd3';
   import {getMaxClass, generateAcronym, groupTalentFlow} from '../utils/utils'
   import eventBus from '../utils/eventbus';
   import talent_flow from '../assets/data/talent_flow.json'
-
-  const lassoList = ["!j Incorporated", "(Shahram) Sean Malek", ".Decimal, Inc.", "01Click, L.L.C.", "061428 CORP.", "1-800 CONTACTS, INC.", "1-800 Concrete, Inc.", "1020, Inc.", "10Tales, Inc.", "10X GENOMICS, INC.", "12 Sigma Technologies", "12 Technologies, Inc.", "128 Technology, Inc.", "140 Proof, Inc.", "15 Seconds of Fame, Inc.", "168 Productions, LLC", "170 Systems Inc.", "1776 Media Network, Inc.", "1914 Holding Company", "1997 Irrevocable Trust for Gregory P. Benson", "19th Hole Cart LLC", "1Co, Inc.", "International Business Machines Corporation", "Raytheon Company", "Honeywell International Inc."]
+  const orgs = d3.json('organization_time_to2020.json');
+  const lassoList = ref([]);
+  const startYear = ref(0);
 
   const graphRef = ref(null);
   let svg, maingroup, circles, texts, lines, donutGroup, donuts;
@@ -50,7 +51,7 @@
   const minOpacity = 0.1; 
   const color ={"A":'#ffadad', "B":'#ffd6a5', "C":'#fdffb6', "D":'#caffbf', "E":'#9bf6ff', "F":'#a0c4ff', "G":'#bdb2ff', "H":'#ffc6ff', "Y":'#cce3de'};
 
-  const radius = d => Math.sqrt(Math.sqrt(d.total_patent_number))*10;
+  const radius = d => Math.sqrt(Math.sqrt(Math.sqrt(d.total_patent_number)))*15;
   const linkStrength = d => d.coo / 100;
 
   const clickEvent = (event, d) => {
@@ -73,7 +74,7 @@
     d3.selectAll('.links')
       .filter(l => l.source.name === d.name || l.target.name === d.name)
       .transition().duration(500).ease(d3.easeLinear)
-      .attr('opacity', l => Math.pow(l.coo / MAXCOO, 2))
+      .attr('opacity', l => l.coo > 50 ? 1 : l.coo / 50)
       .on('start', function repeat(){
         d3.select(this).attr('stroke-dashoffset', 0);
         d3.active(this).attr('stroke-dashoffset', l => l.coo * 4).transition().on('start', repeat);
@@ -90,7 +91,7 @@
       .filter(l => relatedLinks.includes(l.name) || d.name === l.name)
       .transition(t)
       .attr('fill', "#ebebeb");
-    d3.selectAll('.circles, .text')
+    d3.selectAll('.circles')
       .filter(l => !relatedLinks.includes(l.name) && d.name !== l.name)
       .transition(t)
       .attr('opacity', minOpacity);
@@ -106,9 +107,12 @@
     d3.selectAll('.links, .donut-group')
       .transition(t)
       .attr('opacity', 0);
-    d3.selectAll('.circles, .text')
+    d3.selectAll('.circles')
       .transition(t)
       .attr('opacity', 1);
+    d3.selectAll('.text')
+      .transition(t)
+      .attr('opacity', 0);
     d3.selectAll('.circles')
       .attr('fill', d => color[getMaxClass(d)]);
   }
@@ -135,21 +139,6 @@
       .on('mouseout', (event, d) => mouseOutEvent(event, d))
       .on('click', (event, d) => clickEvent(event, d));
 
-    // 渲染节点文本
-    texts = maingroup.selectAll('.text').data(data.nodes).join('text')
-      .attr('class', 'text')
-      .attr('opacity', 1)
-      .attr('x', d => d.x)
-      .attr('y', d => d.y)
-      // .attr('font-size', d => radius(d) > 50 ? radius(d) : 10)
-      .attr('font-size', 12)
-      .attr('text-anchor', 'middle')
-      .attr('dy', 4)
-      .attr("pointer-events", "none")
-      .attr('fill', 'black')
-      // .text(d => d.name);
-      .text(d => generateAcronym(d.name));
-
     // 渲染节点外圈
     const getPath = (data)=>{
       const classData = Object.entries(data.class_ratio).map(([key, value]) => ({
@@ -170,12 +159,27 @@
       .attr('class', 'donut-group')
       .attr('opacity', 0)
       .attr('transform', d => `translate(${d.x}, ${d.y})`)
-      .lower();
       
     donuts = donutGroup.selectAll('.donut').data(d => getPath(d)) .join('path')
       .attr('class', 'donut')
       .attr('d', d => d.path) 
       .attr('fill', d => d.color);
+
+    // 渲染节点文本
+    texts = maingroup.selectAll('.text').data(data.nodes).join('text')
+      .attr('class', 'text')
+      .attr('opacity', 0)
+      .attr('x', d => d.x)
+      .attr('y', d => d.y)
+      // .attr('font-size', d => radius(d) > 50 ? radius(d) : 10)
+      .attr('font-size', 12)
+      .attr('text-anchor', 'middle')
+      .attr('dy', 4)
+      .attr("pointer-events", "none")
+      .attr('fill', 'black')
+      // .text(d => d.name);
+      .text(d => generateAcronym(d.name));
+
 
   };
 
@@ -228,6 +232,52 @@
     .on("drag", dragged)
     .on("end", dragended);
 
+  const drawChart = async() => {
+    
+    let data = await orgs;
+    let nodes = data.filter(d => lassoList.value.includes(d.organization_name))
+    nodes = nodes.map(node => ({
+      name: node.organization_name,
+      total_patent_number: node.data.filter(d => d.time === startYear.value)[0].detail.total_patent_number,
+      class_ratio: node.data.filter(d => d.time === startYear.value)[0].detail.CPC_ratio,
+    }))
+
+    let links = talent_flow.filter(d => d.change_date > startYear.value.toString() && lassoList.value.includes(d.from) && lassoList.value.includes(d.to));
+    links = groupTalentFlow(links);
+    console.log(links)
+    data = {
+      nodes: nodes,
+      links: links
+    };
+
+    MAXCOO = d3.max(data.links, d => d.coo);
+
+    data.nodes.forEach(n => {
+      n.x = svg.node().clientWidth / 2 + Math.random() * 10;
+      n.y = svg.node().clientHeight / 2 + Math.random() * 10;
+    });
+
+    init(data);
+
+    const forceNode = d3.forceManyBody()
+      .strength(-30)
+      .distanceMax(50);
+    const forceLink = d3.forceLink(data.links)
+      .id(d => d.name)
+      .strength(linkStrength)
+      .distance(400);
+
+    simulation = d3.forceSimulation(data.nodes)
+      .force("link", forceLink)
+      .force("charge", forceNode)
+      .force("collide", d3.forceCollide().radius(d => radius(d) + 5))
+      .force("boundary", () => forceBoundary(data.nodes, svg.node().clientWidth, svg.node().clientHeight))
+      .on("tick", ticked);
+
+    circles.call(drag);
+  }
+
+
   // 加载数据并初始化力导向图
   onMounted(() => {
     svg = d3.select(graphRef.value);
@@ -237,51 +287,26 @@
       .attr('id', 'maingroup')
       .attr('transform', 'translate(0, 0) scale(1)');
 
-    d3.json('organization_time_to2020.json').then(data => {
-
-      let nodes = data.filter(d => lassoList.includes(d.organization_name))
-      nodes = nodes.map(node => ({
-        name: node.organization_name,
-        total_patent_number: node.data.filter(d => d.time === 1998)[0].detail.total_patent_number,
-        class_ratio: node.data.filter(d => d.time === 1998)[0].detail.CPC_ratio,
-      }))
-
-      let links = talent_flow.filter(d => d.change_date > '1998-10' && lassoList.includes(d.from) && lassoList.includes(d.to));
-      links = groupTalentFlow(links);
-      console.log(links)
-      data = {
-        nodes: nodes,
-        links: links
-      };
-
-      MAXCOO = d3.max(data.links, d => d.coo);
-
-      data.nodes.forEach(n => {
-        n.x = svg.node().clientWidth / 2 + Math.random() * 10;
-        n.y = svg.node().clientHeight / 2 + Math.random() * 10;
-      });
-
-      init(data);
-
-      const forceNode = d3.forceManyBody()
-        .strength(-30)
-        .distanceMax(50);
-      const forceLink = d3.forceLink(data.links)
-        .id(d => d.name)
-        .strength(linkStrength)
-        .distance(400);
-
-      simulation = d3.forceSimulation(data.nodes)
-        .force("link", forceLink)
-        .force("charge", forceNode)
-        .force("collide", d3.forceCollide().radius(d => radius(d) + 5))
-        .force("boundary", () => forceBoundary(data.nodes, svg.node().clientWidth, svg.node().clientHeight))
-        .on("tick", ticked);
-
-      circles.call(drag);
-    });
+    drawChart();
 
   });
+
+  onMounted(() => {
+    eventBus.on('lassoList', (data) => lassoList.value = data);
+    eventBus.on('year', (data) => startYear.value = data);
+  });
+
+  onBeforeUnmount(() => {
+    eventBus.off('lassoList', (data) => lassoList.value = data);
+    eventBus.on('year', (data) => startYear.value = data);
+  });
+
+  watch(() => lassoList.value, (newData) => {
+    console.log(1);
+    maingroup.selectAll('*').remove(); 
+    drawChart();
+  });
+
 
 </script>
 
