@@ -2,7 +2,7 @@
   <div class="trend-view">
     <div class="title">
       <div>Trend View</div>
-      <div class="name">International Business Machine Coporation</div>
+      <div class="name">{{ selectedCompany }}</div>
     </div>
     <div class="graph-group">
       <line-cart-item class="item" v-for="(name, idx) in features" :key="idx" :name="name" :data="filterDataByKey(name)"></line-cart-item>
@@ -20,10 +20,40 @@
 </template>
 
 <script setup>
+  import { ref, watch, onMounted, reactive ,onBeforeUnmount} from 'vue';
+  import axios from 'axios';
   import LineCartItem from './LineCartItem.vue';
-  import data from '../assets/data/data-trend.json'
-  const features = ['gender ratio', 'CPC ratio', 'average cited', 'total patent number',
+  import eventBus from '../utils/eventbus';
+  const features = ['gender ratio', 'average cited', 'total patent number',
               'total cited number', 'cited per people', 'inventor count'];
+
+  let selectedCompany = ref("International Business Machines Corporation");
+
+  const full_data = ref([]);
+  const loadData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/getOrganizationData');
+      full_data.value = response.data; 
+    } 
+    catch (error) {
+      console.error('请求数据失败:', error);
+    }
+  };
+
+  onMounted(() => {
+    loadData();
+  });
+
+  const data = ref([]);
+  watch(full_data, (newData) => {
+    const companyData = newData.find(d => d.organization_name === selectedCompany.value);
+    data.value = companyData ? companyData.data : [];
+  });
+  watch(selectedCompany, (newCompany) => {
+    console.log(newCompany)
+    const companyData = full_data.value.find(d => d.organization_name === newCompany);
+    data.value = companyData ? companyData.data : [];
+  });
 
   // 替换所有空格为下划线
   const toSnakeCase = (str)=>{
@@ -31,11 +61,21 @@
   }
 
   const filterDataByKey = (key)=>{
-    return data.map(item => ({
+    const d = reactive(data.value.map(item => ({
       time: item.time,
       value: item.detail[toSnakeCase(key)]
-    }));
+    })));
+    return d;
   }
+
+  onMounted(() => {
+    eventBus.on('trend', (data) => selectedCompany.value = data);
+  });
+
+  onBeforeUnmount(() => {
+    eventBus.off('trend', (data) => selectedCompany.value = data);
+  });
+
 
 </script>
 

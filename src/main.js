@@ -7,5 +7,6 @@ import 'element-plus/dist/index.css'
 import './styles/common.less'
 
 const app = createApp(App)
-app.mount('#app')
 app.use(ElementPlus)
+app.mount('#app')
+
