@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">Untitled</div>
+    <div class="title">TatentVis</div>
     <div class="body">
       <div class="left">
         <cluter-view></cluter-view>
@@ -36,7 +36,7 @@
 <style lang="less" scoped>
   .container{
     width: 100vw;
-    height: 100vh;
+    height: 98vh;
     background-color: rgb(179, 179, 179);
     .title{
       width: 100%;

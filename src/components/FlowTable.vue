@@ -4,7 +4,7 @@
       :data="tableData"
       :default-sort="{ prop: ['change_date', 'patent_count_sum', 'cited_count_sum'], order: 'descending' }"
       style="width: 100%"
-      max-height="300"
+      max-height="350"
     >
       <el-table-column prop="tag" label="Tag" width="75"
           :filters="[
@@ -34,12 +34,13 @@
   import eventBus from '../utils/eventbus';
   import talentFlow from '../assets/data/talent_flow.json'
 
+  const startYear = ref(0);
   const selectedCompany = ref(null);
   const lassoList = ref([]);
   let tableData = ref([]);
   tableData = computed(() => {
     let xx = talentFlow.filter(d => lassoList.value.includes(d.from) && lassoList.value.includes(d.to))
-                       .filter(d => d.change_date > '1989-10' && (d.from === selectedCompany.value || d.to === selectedCompany.value));
+                       .filter(d => d.change_date > startYear.value.toString() && (d.from === selectedCompany.value || d.to === selectedCompany.value));
     xx.forEach(d => {
       if(d.from === selectedCompany.value){
         d.patent_count_sum = +d.patent_count_sum;
@@ -62,11 +63,13 @@
   onMounted(() => {
     eventBus.on('lassoList', (data) => lassoList.value = data);
     eventBus.on('flow', (data) => selectedCompany.value = data);
+    eventBus.on('year', (data) => startYear.value = data);
   });
 
   onBeforeUnmount(() => {
     eventBus.off('lassoList', (data) => lassoList.value = data);
     eventBus.off('flow', (data) => selectedCompany.value = data);
+    eventBus.off('year', (data) => startYear.value = data);
   });
 
 </script>

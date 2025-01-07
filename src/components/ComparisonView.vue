@@ -41,11 +41,11 @@ let width, height, margin, innerWidth, innerHeight;
 let orgs, filteredOrgs;
 
 orgs = d3.json('../../public/organization_time_to2020.json');
-console.log(orgs)
+// console.log(orgs)
 
 // 监听事件，当公司被选中时
 eventBus.on('comparison', (companyName) => {
-  console.log(companyName);
+  // console.log(companyName);
   if (!displayedCompanies.value.includes(companyName)) {
     if (displayedCompanies.value.length < 3) {
       displayedCompanies.value.push(companyName);
@@ -54,7 +54,7 @@ eventBus.on('comparison', (companyName) => {
       console.warn('已选择3家公司，无法再添加更多。');
     }
   }
-  console.log('Updated displayedCompanies:', displayedCompanies.value);
+  // console.log('Updated displayedCompanies:', displayedCompanies.value);
 })
 
 // bus.on
@@ -65,7 +65,7 @@ eventBus.on('comparison', (companyName) => {
 function removeCompany(index) {
   displayedCompanies.value.splice(index, 1);
   updateChart();
-  console.log('Updated displayedCompanies:', displayedCompanies.value);
+  // console.log('Updated displayedCompanies:', displayedCompanies.value);
 }
 
 // 初始化
@@ -73,7 +73,7 @@ onMounted(async () => {
   svg = d3.select(graphRef.value);
   width = svg.node().clientWidth;
   height = svg.node().clientHeight;
-  margin = { top: 10, right: 20, bottom: 0, left: 10 };
+  margin = { top: 0, right: 0, bottom: 0, left: 0 };
   innerWidth = width - margin.left - margin.right;
   innerHeight = height - margin.top - margin.bottom;
 
@@ -246,7 +246,7 @@ async function updateChart(){
           .attr('width',0) // 初始width为0, 动画中展开
           // .attr('fill', (seg, idx) => color(idx))
           .attr('fill', (seg) => {
-            console.log('cpc',cpcKeys[seg.cpcIndex])
+            // console.log('cpc',cpcKeys[seg.cpcIndex])
             return color_2[cpcKeys[seg.cpcIndex]]
           })
           // .attr('fill', (seg) => color_2[cpcKeys[seg.cpcIndex]])
@@ -357,11 +357,11 @@ async function updateChart(){
 
 // 获取整合organization数据
 async function fetchAndTransformData(companyNames) {
-  if(!filteredOrgs){
+  // if(!filteredOrgs){
   //  orgs = await d3.json('../../public/organization_time_to2020.json');
    const data = await orgs;
    filteredOrgs = data.filter(d => Selected_list.value.includes(d.organization_name));
-  }
+  // }
   // const orgs = await d3.json('../../year-test.json');
 
   // 过滤 orgs 数据，仅保留在 Selected 中的公司
@@ -416,7 +416,7 @@ async function fetchAndTransformData(companyNames) {
         return { metric, values: [...values], originalValues: [...values] };
       }
   });
-  console.log("metric:",transformed)
+  // console.log("metric:",transformed)
   return transformed;
 
 }
@@ -474,6 +474,7 @@ async function fetchAndTransformData(companyNames) {
   color: black; /* 设置文字颜色为黑色 */
   font-size: 10px; /* 设置字体大小 */
   // font-weight: bold;
+  flex-grow: 1;
   }
   .remove-button {
     margin-left: 5px;
